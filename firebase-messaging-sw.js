@@ -16,7 +16,7 @@ const messaging = firebase.messaging();
 
 fetch('https://jsonplaceholder.typicode.com/todos/1')
   .then(response => response.json())
-  .then(json => console.log(json));
+  .then(json => console.log("Background json", json));
 
 /* const inicializarFirebase = () => {
   firebase.initializeApp({
@@ -60,16 +60,9 @@ navigator.serviceWorker
 	var url = "http://dummy.restapiexample.com/api/v1/employees";
     xmlHttp.open("GET", url, true); // true for asynchronous 
     xmlHttp.send(); */
-	var url = "http://dummy.restapiexample.com/api/v1/employees";
-	fetch(url)
-  .then(function(data) {
-    console.log("API call from SW");
-	
-    })
-  .catch(function(error) {
-    // If there is any error you will catch them here
-	console.log("API call exception from SW");
-  });  
+	fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response => response.json())
+  .then(json => console.log("Background json 3", json));
 
   return self.registration.showNotification(notificationTitle,
     notificationOptions);
