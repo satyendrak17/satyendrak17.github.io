@@ -51,7 +51,7 @@ navigator.serviceWorker
 		  console.log('[firebase-messaging-sw.js] Received background message ', payload);
 		  const notificationTitle = json.title;
 		  const notificationOptions = {
-			body: json.title + ' with my body';
+			body: json.title + ' with my body',
 			icon: '/firebase-logo.png'
 		  };
 		  console.log("Background json 3", json);
