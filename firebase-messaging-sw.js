@@ -14,10 +14,6 @@ importScripts('https://www.gstatic.com/firebasejs/6.3.4/firebase-messaging.js');
 // messages.
 const messaging = firebase.messaging();
 
-fetch('https://jsonplaceholder.typicode.com/todos/1')
-  .then(response => response.json())
-  .then(json => console.log("Background json", json));
-
 /* const inicializarFirebase = () => {
   firebase.initializeApp({
     messagingSenderId: '679966463354'
@@ -48,24 +44,20 @@ navigator.serviceWorker
 	return self.registration.showNotification(title, options)
   }); */
   
-  messaging.setBackgroundMessageHandler(function(payload) {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-	 const notificationTitle = 'Background Message Title';
-  const notificationOptions = {
-    body: 'Background Message body Test.',
-    icon: '/firebase-logo.png'
-  };
-  
-  /* var xmlHttp = new XMLHttpRequest();
-	var url = "http://dummy.restapiexample.com/api/v1/employees";
-    xmlHttp.open("GET", url, true); // true for asynchronous 
-    xmlHttp.send(); */
+ messaging.setBackgroundMessageHandler(function(payload) {
 	fetch('https://jsonplaceholder.typicode.com/todos/1')
-  .then(response => response.json())
-  .then(json => console.log("Background json 3", json));
-
-  return self.registration.showNotification(notificationTitle,
-    notificationOptions);
+	  .then(response => response.json())
+	  .then(json => {
+		  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+		  const notificationTitle = json.title;
+		  const notificationOptions = {
+			body: json.title + ' with my body';
+			icon: '/firebase-logo.png'
+		  };
+		  console.log("Background json 3", json);
+		  return self.registration.showNotification(notificationTitle,
+			notificationOptions);
+	  });
 });
  
  function callDummyAPI(){
